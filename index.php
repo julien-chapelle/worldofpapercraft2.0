@@ -1,11 +1,13 @@
 <?php
 
-require('Character.php');
-require('Hero.php');
-require('Orc.php');
+require('model/Character.php');
+require('model/Hero.php');
+require('model/Enemy.php');
+require('view/enemyArchetype.php');
+require('view/enemyArchetype.php');
 
 $hero = new Hero(2000, 0, 'Conan', 'Sabre', 250, 'armure d\'os', 600);
-$orc = new Orc(3000, 'Vert de gris');
+$orc = new Enemy(3000, 'Vert de gris');
 
 ?>
 

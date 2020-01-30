@@ -1,6 +1,6 @@
 <?php
 
-class Orc extends Character
+class Enemy extends Character
 {
     //PROPRIETE///////////////////////////////////////////////
     private $_orcName;

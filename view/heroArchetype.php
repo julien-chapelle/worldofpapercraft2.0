@@ -38,7 +38,7 @@ $heroArchetype = [
         'multiplicatorDamage' => (2)
     ],
     'développeur web' => [
-        'pics' => ('developeurWebPic.png.png'),
+        'pics' => ('developeurWebPic.png'),
         'description' => ('Héros de support, le Développeur Web a pour but de réparer les soi-disant bugs qui ont causé la chute de son Paladin protecteur.'),
         'health' => (random_int(1500, 1800)),
         'rage' => (0),
@@ -50,15 +50,32 @@ $heroArchetype = [
         'multiplicatorDamage' => (0)
     ]
 ];
+// CREATION HERO
+foreach ($heroArchetype as $key => $value) {
+    if ($key != $_POST['heroSelect']) {
+        continue;
+    };
+    $heroType = $_POST['heroSelect'];
+    $heroName = $_POST['nameHeroChoice'];
 
-// foreach ($heroArchetype as $key => $value) {
-//     if ($key != 'paladin') {
-//         continue;
-//     };
-//     echo '----' . $key . '----<br />';
 
-//     foreach ($value as $key2 => $value2) {
+    foreach ($value as $key2 => $value2) {
 
-//         echo $key2 . ' --> ' . $value2 . '<br />';
-//     };
-// };
+        $heroPic = $value['pics'];
+        $heroDescription = $value['description'];
+        $heroHealth = $value['health'];
+        $heroRage = $value['rage'];
+        $heroWeapon = $value['weapon'];
+        $heroWeaponDamage = $value['weaponDamage'];
+        $heroShield = $value['shield'];
+        $heroShieldValue = $value['shieldValue'];
+        $heroMultiplicatorDamage = $value['multiplicatorDamage'];
+
+
+    };
+    
+};
+var_dump($heroType);
+var_dump($heroName);
+var_dump($heroHealth);
+

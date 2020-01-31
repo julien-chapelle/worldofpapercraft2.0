@@ -6,7 +6,11 @@ require('model/Enemy.php');
 require('view/heroArchetype.php');
 require('view/enemyArchetype.php');
 
-// var_dump($_POST);
+$hero = new Hero($heroHealth, $heroRage, $heroName, $heroWeapon, $heroWeaponDamage, $heroShield, $heroShieldValue, $heroMultiplicatorDamage);
+$orc = new Enemy(3000, 0, 'Vert de gris', 'massue', 300, 'armure de cuir', 600, 4);
+
+var_dump($_POST);
+
 ?>
 
 <!DOCTYPE html>
@@ -35,8 +39,8 @@ require('view/enemyArchetype.php');
         <form method="POST" action="index.php">
             <div class="row text-center m-5 m-0">
                 <div class="col nameChoice">
-                    <div class="form-group input-group-lg">
-                        <label for="nameHeroChoice">Nom du héro :</label>
+                    <div class="form-group">
+                        <label for="nameHeroChoice">Choix du nom du héro :</label>
                         <input type="text" class="form-control text-center" id="nameHeroChoice" name="nameHeroChoice">
                     </div>
                 </div>
@@ -52,13 +56,13 @@ require('view/enemyArchetype.php');
                                 break;
                             }; ?>
                             <div class="card m-5 media cardBorder" style="width: 18rem;">
-                                <img src="assets/img/<?= $value['pics'] ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $key ?>">
+                                <img src="assets/img/<?= $value['pics'] ?>" class="card-img-top p-4" alt="<?= 'Image de ' . $key ?>">
                                 <div class="card-body">
                                     <h5 class="card-title text-center h1"><?= $key ?></h5>
                                     <p class="card-text text-center h4"><?= $value['description'] ?></p>
                                     <div class="form-check text-center">
                                         <input class="form-check-input" type="radio" name="heroSelect" id="<?= $key . 'Id' ?>" value="<?= $key ?>" checked>
-                                        <label class="form-check-label h2" for="<?= $key . 'Id' ?>">
+                                        <label class="form-check-label" for="<?= $key . 'Id' ?>">
                                             Selectionner
                                         </label>
                                     </div>
@@ -70,8 +74,8 @@ require('view/enemyArchetype.php');
             </div>
             <div class="row text-center m-5 m-0">
                 <div class="col nameChoice">
-                    <div class="form-group input-group-lg">
-                        <label for="nameEnemyChoice">Nom de l'ennemi :</label>
+                    <div class="form-group">
+                        <label for="nameEnemyChoice">Choix du nom de l'ennemi :</label>
                         <input type="text" class="form-control text-center" id="nameEnemyChoice" name="nameEnemyChoice">
                     </div>
                 </div>
@@ -87,13 +91,13 @@ require('view/enemyArchetype.php');
                                 break;
                             }; ?>
                             <div class="card m-5 media cardBorder" style="width: 18rem;">
-                                <img src="assets/img/<?= $value['pics'] ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $key ?>">
+                                <img src="assets/img/<?= $value['pics'] ?>" class="card-img-top p-4" alt="<?= 'Image de ' . $key ?>">
                                 <div class="card-body">
                                     <h5 class="card-title text-center h1"><?= $key ?></h5>
                                     <p class="card-text text-center h4"><?= $value['description'] ?></p>
                                     <div class="form-check text-center">
                                         <input class="form-check-input" type="radio" name="enemySelect" id="<?= $key . 'Id' ?>" value="<?= $key ?>" checked>
-                                        <label class="form-check-label h2" for="<?= $key . 'Id' ?>">
+                                        <label class="form-check-label" for="<?= $key . 'Id' ?>">
                                             Selectionner
                                         </label>
                                     </div>
@@ -104,9 +108,7 @@ require('view/enemyArchetype.php');
                 <?php }; ?>
             </div>
             <div class="row m-5 m-0">
-                <button type="submit" class="col nameChoice mx-5 media" id="nameEnemyChoice" name="fight" value="fight">
-                    <span class="mx-auto">FIGHT !</span>
-                </button>
+                <button type="submit" class="col nameChoice text-center mx-5 media" id="nameEnemyChoice" name="fight" value="fight">FIGHT !</button>
             </div>
         </form>
     </div>

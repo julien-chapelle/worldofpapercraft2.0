@@ -90,7 +90,7 @@ class Hero extends Character
 
 
     //CONSTRUCTEUR//////////////////////////////////////////////////
-    function __construct($health, $rage, $heroName, $weapon, $weaponDamage, $shield, $shieldValue, $multiplicatorDamage)
+    public function __construct($health, $rage, $heroName, $weapon, $weaponDamage, $shield, $shieldValue, $multiplicatorDamage)
     {
         parent::setHealth($health);
         parent::setRage($rage);

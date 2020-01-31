@@ -29,7 +29,7 @@ class Character
     }
 
     //CONSTRUCTEUR///////////////////////////////////////////
-    function __construct($health,$rage)
+    public function __construct($health,$rage)
     {
         
         $this->setHealth($health);

@@ -1,0 +1,104 @@
+/* Background body */
+
+body {
+    background: url("../img/background.png");
+    background-position: left;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+/* Background body */
+
+/* Fonts */
+.font {
+    font-family: "FunkyChip";
+}
+
+@font-face {
+    font-family: "FunkyChip";
+    src: url("../font/FunkyChip.ttf") format('truetype');
+}
+/* Fonts */
+
+/* Title */
+.headerTitle {
+    background-color: red;
+    border: 5px solid yellow;
+    border-radius: 2rem;
+    font-size: 7rem;
+    color: rgb(165, 0, 0);
+    text-shadow: 3px 1px 3px black;
+    box-shadow: 10px 5px 5px black;
+}
+/* Title */
+
+/* Name choice */
+.nameChoice {
+    background-color: red;
+    border: 5px solid yellow;
+    border-radius: 2rem;
+    font-size: 3rem;
+    color: rgb(165, 0, 0);
+    text-shadow: 3px 1px 3px black;
+    box-shadow: 10px 5px 5px black;
+}
+/* Name choice */
+
+/* Border card */
+.cardBorder {
+    border: 5px solid black;
+    border-radius: 2rem;
+    color: black;
+    text-shadow: 2px 1px 2px grey;
+    box-shadow: 10px 5px 5px black;
+}
+/* Border card */
+
+/* Text size */
+.textSize1 {
+    font-size: 6rem;
+}
+.textSize2 {
+    font-size: 4rem;
+}
+.textSize3 {
+    font-size: 2rem;
+}
+/* Text size */
+
+/* Text color */
+.textColor1 {
+    color: #2dabe3;
+}
+.textColor2 {
+    color: #1a4867;
+}
+/* Text color */
+
+/* Zoom card programming */
+.media {
+    -webkit-transition: all 0.5s ease;
+    /* Safari et Chrome */
+    -moz-transition: all 0.5s ease;
+    /* Firefox */
+    -ms-transition: all 0.5s ease;
+    /* Internet Explorer 9 */
+    -o-transition: all 0.5s ease;
+    /* Opera */
+    transition: all 0.5s ease;
+}
+
+.media:hover {
+    /* L'image est grossie de 25% */
+    -webkit-transform: scale(1.01);
+    /* Safari et Chrome */
+    -moz-transform: scale(1.01);
+    /* Firefox */
+    -ms-transform: scale(1.01);
+    /* Internet Explorer 9 */
+    -o-transform: scale(1.01);
+    /* Opera */
+    transform: scale(1.01);
+}
+/* Zoom card programming */

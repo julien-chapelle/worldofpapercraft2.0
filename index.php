@@ -10,7 +10,7 @@ require('view/enemyArchetypeLoop.php');
 
 if (isset($_POST['fight'])) {
     $hero = new Hero($heroHealth, $heroRage, $heroName, $heroWeapon, $heroWeaponDamage, $heroShield, $heroShieldValue, $heroMultiplicatorDamage);
-    $orc = new Enemy($enemyHealth, $enemyRage, $enemyName, $enemyWeapon, $enemyWeaponDamage, $enemyShield, $enemyShieldValue, $enemyMultiplicatorDamage);
+    $enemy = new Enemy($enemyHealth, $enemyRage, $enemyName, $enemyWeapon, $enemyWeaponDamage, $enemyShield, $enemyShieldValue, $enemyMultiplicatorDamage);
 };
 
 // if(isset($_POST['fight'])){
@@ -38,125 +38,198 @@ if (isset($_POST['fight'])) {
 
 <body class="font">
     <div class="container-fluid p-0">
-        <div class="row text-center m-5 m-0">
-            <div class="col headerTitle">
-                <p>World Of PaperCraft</p>
+        <div id="selectVisibility">
+            <div class="row text-center m-5 m-0">
+                <div class="col headerTitle">
+                    <p>World Of PaperCraft</p>
+                </div>
             </div>
+            <form method="POST" action="index.php">
+                <div class="row text-center m-5 m-0">
+                    <div class="col nameChoice">
+                        <div class="form-group input-group-lg">
+                            <label for="nameHeroChoice">Nom du héro :</label>
+                            <input type="text" class="form-control text-center" id="nameHeroChoice" name="nameHeroChoice">
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center m-0">
+                    <?php foreach ($heroArchetype as $key => $value) { ?>
+                        <div class="col-3">
+                            <?php
+                            $count = 0;
+                            foreach ($value as $key2 => $value2) {
+                                $count++;
+                                if ($count == 2) {
+                                    break;
+                                }; ?>
+                                <div class="card m-5 media cardBorder" style="width: 18rem;">
+                                    <img src="assets/img/<?= $value['pics'] ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $key ?>">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center h1"><?= $key ?></h5>
+                                        <p class="card-text text-center h4"><?= $value['description'] ?></p>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input" type="radio" name="heroSelect" id="<?= $key . 'Id' ?>" value="<?= $key ?>" checked>
+                                            <label class="form-check-label h2" for="<?= $key . 'Id' ?>">
+                                                Selectionner
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php }; ?>
+                        </div>
+                    <?php }; ?>
+                </div>
+                <div class="row text-center m-5 m-0">
+                    <div class="col nameChoice">
+                        <div class="form-group input-group-lg">
+                            <label for="nameEnemyChoice">Nom de l'ennemi :</label>
+                            <input type="text" class="form-control text-center" id="nameEnemyChoice" name="nameEnemyChoice">
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center m-0">
+                    <?php foreach ($enemyArchetype as $key => $value) { ?>
+                        <div class="col-3">
+                            <?php
+                            $count = 0;
+                            foreach ($value as $key2 => $value2) {
+                                $count++;
+                                if ($count == 2) {
+                                    break;
+                                }; ?>
+                                <div class="card m-5 media cardBorder" style="width: 18rem;">
+                                    <img src="assets/img/<?= $value['pics'] ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $key ?>">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center h1"><?= $key ?></h5>
+                                        <p class="card-text text-center h4"><?= $value['description'] ?></p>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input" type="radio" name="enemySelect" id="<?= $key . 'Id' ?>" value="<?= $key ?>" checked>
+                                            <label class="form-check-label h2" for="<?= $key . 'Id' ?>">
+                                                Selectionner
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php }; ?>
+                        </div>
+                    <?php }; ?>
+                </div>
+                <div class="row m-5 m-0">
+                    <input type="submit" class="col nameChoice mx-5 media" name="fight" value="FIGHT !" />
+                </div>
+                <?php if (isset($_POST['fight']) && !empty($_POST)) { ?>
+                    <div class="row m-5 m-0">
+                        <a type="button" class="col nameChoice mx-5 media" id="fight">
+                            <span class="mx-auto"><i class="fas fa-arrow-down"></i> Voir le combat <i class="fas fa-arrow-down"></i></span>
+                        </a>
+                    </div>
+                <?php } ?>
+            </form>
         </div>
-        <form method="POST" action="index.php">
+        <div id="arenaVisibility">
             <div class="row text-center m-5 m-0">
-                <div class="col nameChoice">
-                    <div class="form-group input-group-lg">
-                        <label for="nameHeroChoice">Nom du héro :</label>
-                        <input type="text" class="form-control text-center" id="nameHeroChoice" name="nameHeroChoice">
-                    </div>
+                <div class="col headerTitle">
+                    <p>WOP ARENA</p>
                 </div>
             </div>
             <div class="row justify-content-center m-0">
-                <?php foreach ($heroArchetype as $key => $value) { ?>
-                    <div class="col-3">
-                        <?php
-                        $count = 0;
-                        foreach ($value as $key2 => $value2) {
-                            $count++;
-                            if ($count == 2) {
-                                break;
-                            }; ?>
-                            <div class="card m-5 media cardBorder" style="width: 18rem;">
-                                <img src="assets/img/<?= $value['pics'] ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $key ?>">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center h1"><?= $key ?></h5>
-                                    <p class="card-text text-center h4"><?= $value['description'] ?></p>
-                                    <div class="form-check text-center">
-                                        <input class="form-check-input" type="radio" name="heroSelect" id="<?= $key . 'Id' ?>" value="<?= $key ?>" checked>
-                                        <label class="form-check-label h2" for="<?= $key . 'Id' ?>">
-                                            Selectionner
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php }; ?>
+                <div class="col-3">
+                    <div class="card m-5 media cardBorder" style="width: 18rem;">
+                        <img src="assets/img/<?= $heroPic ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $heroType ?>">
+                        <div class="card-body">
+                            <h5 class="card-title text-center h1"><?= $heroName ?></h5>
+                            <p class="card-text text-left h5"><i class="fas fa-user-ninja"></i><?= ' - ' . $heroType ?></p>
+                            <p class="card-text text-left h5"><i class="fas fa-heartbeat"></i><?= ' - ' . $heroHealth ?></p>
+                            <p class="card-text text-left h5"><i class="fas fa-khanda"></i><?= ' - ' . $heroWeapon . ' : ' . $heroWeaponDamage . ' points' ?></p>
+                            <p class="card-text text-left h5"><i class="fas fa-user-shield"></i><?= ' - ' . $heroShield . ' : ' . $heroShieldValue . ' points'  ?></p>
+                            <p class="card-text text-left h5"><i class="fas fa-fire-alt"></i><?= ' - ' . $heroRage ?></p>
+                        </div>
                     </div>
-                <?php }; ?>
-            </div>
-            <div class="row text-center m-5 m-0">
-                <div class="col nameChoice">
-                    <div class="form-group input-group-lg">
-                        <label for="nameEnemyChoice">Nom de l'ennemi :</label>
-                        <input type="text" class="form-control text-center" id="nameEnemyChoice" name="nameEnemyChoice">
+                </div>
+                <div class="col-3">
+                    <div class="card m-5 media cardBorder" style="width: 18rem;">
+                        <img src="assets/img/<?= $enemyPic ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $enemyType ?>">
+                        <div class="card-body">
+                            <h5 class="card-title text-center h1"><?= $enemyName ?></h5>
+                            <p class="card-text text-left h5"><i class="fas fa-user-ninja"></i><?= ' - ' . $enemyType ?></p>
+                            <p class="card-text text-left h5"><i class="fas fa-heartbeat"></i><?= ' - ' . $enemyHealth ?></p>
+                            <p class="card-text text-left h5"><i class="fas fa-khanda"></i><?= ' - ' . $enemyWeapon . ' : ' . $enemyWeaponDamage . ' points' ?></p>
+                            <p class="card-text text-left h5"><i class="fas fa-user-shield"></i><?= ' - ' . $enemyShield . ' : ' . $enemyShieldValue . ' points'  ?></p>
+                            <p class="card-text text-left h5"><i class="fas fa-fire-alt"></i><?= ' - ' . $enemyRage ?></p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center m-0">
-                <?php foreach ($enemyArchetype as $key => $value) { ?>
-                    <div class="col-3">
-                        <?php
-                        $count = 0;
-                        foreach ($value as $key2 => $value2) {
-                            $count++;
-                            if ($count == 2) {
-                                break;
-                            }; ?>
+
+            <?php
+            if (isset($_POST['fight']) && !empty($_POST)) {
+                while ($hero->getHealth() > 0 || $enemy->getHealth() > 0) {
+
+                    $hero->Attacked($enemy->getWeaponDamage());
+                    $heroCushionedAttack = ($enemy->getWeaponDamage() - $hero->getShieldValue());
+                    $hero->RageUp($heroRageUp);
+                    $hero->Attack($hero->getWeaponDamage());
+                    
+                    $enemy->Attacked($hero->getWeaponDamage());
+                    $enemyCushionedAttack = ($hero->getWeaponDamage() - $enemy->getShieldValue());
+                    $enemy->RageUp($enemyRageUp);
+                    $enemy->Attack($enemy->getWeaponDamage());
+
+            ?>
+                    <div class="row justify-content-center m-0">
+                        <div class="col-3">
                             <div class="card m-5 media cardBorder" style="width: 18rem;">
-                                <img src="assets/img/<?= $value['pics'] ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $key ?>">
                                 <div class="card-body">
-                                    <h5 class="card-title text-center h1"><?= $key ?></h5>
-                                    <p class="card-text text-center h4"><?= $value['description'] ?></p>
-                                    <div class="form-check text-center">
-                                        <input class="form-check-input" type="radio" name="enemySelect" id="<?= $key . 'Id' ?>" value="<?= $key ?>" checked>
-                                        <label class="form-check-label h2" for="<?= $key . 'Id' ?>">
-                                            Selectionner
-                                        </label>
-                                    </div>
+                                    <p class="card-text text-left h4"><?= '- ' . $enemyName . ' attaque !' ?></p>
+                                    <p class="card-text text-left h4"><?= '- La puissance de son coup vaut ' . $enemy->getWeaponDamage() . ' de dégâts, mais votre ' . $hero->getShield() . ' en absorbe ' . $hero->getShieldValue() . ' donc vous ne perdez que ' . $heroCushionedAttack . ' points de vie.' ?></p>
                                 </div>
                             </div>
-                        <?php }; ?>
+                        </div>
+                        <div class="col-3">
+                            <div class="card m-5 media cardBorder" style="width: 18rem;">
+                                <img src="assets/img/<?= $heroPic ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $heroType ?>">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center h1"><?= $heroName ?></h5>
+                                    <p class="card-text text-left h5"><i class="fas fa-user-ninja"></i><?= ' - ' . $heroType ?></p>
+                                    <p class="card-text text-left h4"><i class="fas fa-heartbeat"></i><?= ' - ' . $hero->getHealth() ?></p>
+                                    <p class="card-text text-left h5"><i class="fas fa-khanda"></i><?= ' - ' . $heroWeapon . ' : ' . $heroWeaponDamage . ' points' ?></p>
+                                    <p class="card-text text-left h5"><i class="fas fa-user-shield"></i><?= ' - ' . $heroShield . ' : ' . $heroShieldValue . ' points'  ?></p>
+                                    <p class="card-text text-left h4"><i class="fas fa-fire-alt"></i><?= ' - ' . $hero->getRage() ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card m-5 media cardBorder" style="width: 18rem;">
+                                <img src="assets/img/<?= $enemyPic ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $enemyType ?>">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center h1"><?= $enemyName ?></h5>
+                                    <p class="card-text text-left h5"><i class="fas fa-user-ninja"></i><?= ' - ' . $enemyType ?></p>
+                                    <p class="card-text text-left h4"><i class="fas fa-heartbeat"></i><?= ' - ' . $enemy->getHealth() ?></p>
+                                    <p class="card-text text-left h5"><i class="fas fa-khanda"></i><?= ' - ' . $enemyWeapon . ' : ' . $enemyWeaponDamage . ' points' ?></p>
+                                    <p class="card-text text-left h5"><i class="fas fa-user-shield"></i><?= ' - ' . $enemyShield . ' : ' . $enemyShieldValue . ' points'  ?></p>
+                                    <p class="card-text text-left h4"><i class="fas fa-fire-alt"></i><?= ' - ' . $enemy->getRage() ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card m-5 media cardBorder" style="width: 18rem;">
+                                <div class="card-body">
+                                    <p class="card-text text-left h4"><?= '- ' . $heroName . ' attaque !' ?></p>
+                                    <p class="card-text text-left h4"><?= '- La puissance de son coup vaut ' . $hero->getWeaponDamage() . ' de dégâts, mais votre ' . $enemy->getShield() . ' en absorbe ' . $enemy->getShieldValue() . ' donc vous ne perdez que ' . $enemyCushionedAttack . ' points de vie.' ?></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                <?php }; ?>
-            </div>
+
+            <?php };
+            }; ?>
+
             <div class="row m-5 m-0">
-                <input type="submit" class="col nameChoice mx-5 media" id="nameEnemyChoice" name="fight" value="FIGHT !" />
+                <a type="button" class="col nameChoice mx-5 media" id="returnSelect">
+                    <span class="mx-auto">RETOUR SELECTION HERO</span>
+                </a>
             </div>
-        </form>
-        <div class="row text-center m-5 m-0">
-            <div class="col headerTitle">
-                <p>WOP ARENA</p>
-            </div>
-        </div>
-        <div class="row justify-content-center m-0">
-            <div class="col-3">
-                <div class="card m-5 media cardBorder" style="width: 18rem;">
-                    <img src="assets/img/<?= $heroPic ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $heroType ?>">
-                    <div class="card-body">
-                        <h5 class="card-title text-center h1"><?= $heroName ?></h5>
-                        <p class="card-text text-left h5"><?= 'Type - ' . $heroType ?></p>
-                        <p class="card-text text-left h5"><?= 'Santé - ' . $heroHealth ?></p>
-                        <p class="card-text text-left h5"><?= 'Arme - ' . $heroWeapon . ' : ' . $heroWeaponDamage . ' points' ?></p>
-                        <p class="card-text text-left h5"><?= 'Armure - ' . $heroShield . ' : ' . $heroShieldValue . ' points'  ?></p>
-                        <p class="card-text text-left h5"><?= 'Rage - ' . $heroRage ?></p>
-                        <div class="form-check text-center"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card m-5 media cardBorder" style="width: 18rem;">
-                    <img src="assets/img/<?= $enemyPic ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $enemyType ?>">
-                    <div class="card-body">
-                        <h5 class="card-title text-center h1"><?= $enemyName ?></h5>
-                        <p class="card-text text-left h5"><?= 'Type - ' . $enemyType ?></p>
-                        <p class="card-text text-left h5"><?= 'Santé - ' . $enemyHealth ?></p>
-                        <p class="card-text text-left h5"><?= 'Arme - ' . $enemyWeapon . ' : ' . $enemyWeaponDamage . ' points' ?></p>
-                        <p class="card-text text-left h5"><?= 'Armure - ' . $enemyShield . ' : ' . $enemyShieldValue . ' points'  ?></p>
-                        <p class="card-text text-left h5"><?= 'Rage - ' . $enemyRage ?></p>
-                        <div class="form-check text-center"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row m-5 m-0">
-            <a type="button" href="index.php" class="col nameChoice mx-5 media">
-                <span class="mx-auto">RETOUR SELECTION HERO</span>
-            </a>
         </div>
     </div>
 

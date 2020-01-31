@@ -15,6 +15,7 @@ if (isset($_POST['fight'])) {
             $enemyDescription = $value['description'];
             $enemyHealth = $value['health'];
             $enemyRage = $value['rage'];
+            $enemyRageUp = $value['rageUp'];
             $enemyWeapon = $value['weapon'];
             $enemyWeaponDamage = $value['weaponDamage'];
             $enemyShield = $value['shield'];

@@ -75,7 +75,7 @@ class Hero extends Character
     public function Attack()
     {
 
-        $this->setWeaponDamage(random_int(600, 800));
+        $this->setWeaponDamage($this->getWeaponDamage());
     }
 
     public function Attacked($attacked)
@@ -103,10 +103,10 @@ class Hero extends Character
         $this->setMultiplicatorDamage($multiplicatorDamage);
     }
 
-    public function __toString()
-    {
-        return '- Nouveau héro créé.<br />' . 'Il possède ' . $this->getHealth() . ' points de santé et ' . $this->getRage() . ' point de rage.<br />Ce héro s\'appelle ' . $this->getHeroName() . ' et a choisi l\'arme : ' . $this->getWeapon() . ' avec ' . $this->getWeaponDamage() . ' points de dégâts avec un multiplicateur critique de ' . $this->getMultiplicatorDamage() . ' et l\'armure est : ' . $this->getShield() . ' avec ' . $this->getShieldValue() . ' points de protections.';
-    }
+    // public function __toString()
+    // {
+    //     return '- Nouveau héro créé.<br />' . 'Il possède ' . $this->getHealth() . ' points de santé et ' . $this->getRage() . ' point de rage.<br />Ce héro s\'appelle ' . $this->getHeroName() . ' et a choisi l\'arme : ' . $this->getWeapon() . ' avec ' . $this->getWeaponDamage() . ' points de dégâts avec un multiplicateur critique de ' . $this->getMultiplicatorDamage() . ' et l\'armure est : ' . $this->getShield() . ' avec ' . $this->getShieldValue() . ' points de protections.';
+    // }
 }
 
 ?>

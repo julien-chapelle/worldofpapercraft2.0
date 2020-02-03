@@ -12,12 +12,12 @@ body {
 
 /* Fonts */
 .font {
-    font-family: "FunkyChip";
+    font-family: "Sorcery 6128";
 }
 
 @font-face {
-    font-family: "FunkyChip";
-    src: url("../font/FunkyChip.ttf") format('truetype');
+    font-family: "Sorcery 6128";
+    src: url("../font/Sorcery 6128.ttf") format('truetype');
 }
 /* Fonts */
 
@@ -26,7 +26,7 @@ body {
     background-color: red;
     border: 5px solid yellow;
     border-radius: 2rem;
-    font-size: 7rem;
+    font-size: 4rem;
     color: rgb(165, 0, 0);
     text-shadow: 3px 1px 3px black;
     box-shadow: 10px 5px 5px black;
@@ -38,7 +38,7 @@ body {
     background-color: red;
     border: 5px solid yellow;
     border-radius: 2rem;
-    font-size: 3rem;
+    font-size: 2rem;
     color: rgb(165, 0, 0);
     text-shadow: 3px 1px 3px black;
     box-shadow: 10px 5px 5px black;
@@ -57,10 +57,10 @@ body {
 
 /* Text size */
 .textSize1 {
-    font-size: 6rem;
+    font-size: 1rem;
 }
 .textSize2 {
-    font-size: 4rem;
+    font-size: 0.7rem;
 }
 .textSize3 {
     font-size: 2rem;
@@ -69,7 +69,7 @@ body {
 
 /* Text color */
 .textColor1 {
-    color: #2dabe3;
+    color: rgb(165, 0, 0);
 }
 .textColor2 {
     color: #1a4867;

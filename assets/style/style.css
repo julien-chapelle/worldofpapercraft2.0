@@ -11,6 +11,14 @@ body {
 
 /* Background body */
 
+/* Curseur poniteur */
+
+input, a, button {
+    cursor: url('../img/cursor2.cur'), pointer;
+}
+
+/* Curseur poniteur */
+
 /* Taille image */
 .card {
     width: 15rem;
@@ -62,6 +70,7 @@ body {
     .headerTitle {
         font-size: 1.5rem;
     }
+
     .nameChoice {
         font-size: 1.2rem;
     }

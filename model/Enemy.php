@@ -80,7 +80,11 @@ class Enemy extends Character
 
     public function Attacked($attacked)
     {
-        $this->setHealth($this->getHealth() - ($attacked - $this->_shieldValue));
+        if ($attacked < $this->_shieldValue) {
+            $this->setHealth($this->getHealth());
+        } else {
+            $this->setHealth($this->getHealth() - ($attacked - $this->_shieldValue));
+        }
     }
 
     public function RageUp($rageUp)

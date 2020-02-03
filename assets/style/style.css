@@ -8,7 +8,15 @@ body {
     background-attachment: fixed;
     background-size: cover;
 }
+
 /* Background body */
+
+/* Taille image */
+.card {
+    width: 15rem;
+}
+
+/* Taille image */
 
 /* Fonts */
 .font {
@@ -19,18 +27,22 @@ body {
     font-family: "Sorcery 6128";
     src: url("../font/Sorcery 6128.ttf") format('truetype');
 }
+
 /* Fonts */
+
+
 
 /* Title */
 .headerTitle {
     background-color: red;
     border: 5px solid yellow;
     border-radius: 2rem;
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: rgb(165, 0, 0);
     text-shadow: 3px 1px 3px black;
     box-shadow: 10px 5px 5px black;
 }
+
 /* Title */
 
 /* Name choice */
@@ -43,7 +55,17 @@ body {
     text-shadow: 3px 1px 3px black;
     box-shadow: 10px 5px 5px black;
 }
+
 /* Name choice */
+
+@media screen and (max-width: 690px) {
+    .headerTitle {
+        font-size: 1.5rem;
+    }
+    .nameChoice {
+        font-size: 1.2rem;
+    }
+}
 
 /* Border card */
 .cardBorder {
@@ -53,27 +75,33 @@ body {
     text-shadow: 2px 1px 2px grey;
     box-shadow: 10px 5px 5px black;
 }
+
 /* Border card */
 
 /* Text size */
 .textSize1 {
-    font-size: 1rem;
+    font-size: 80%;
 }
+
 .textSize2 {
-    font-size: 0.7rem;
+    font-size: 70%;
 }
+
 .textSize3 {
     font-size: 2rem;
 }
+
 /* Text size */
 
 /* Text color */
 .textColor1 {
     color: rgb(165, 0, 0);
 }
+
 .textColor2 {
     color: #1a4867;
 }
+
 /* Text color */
 
 /* Zoom card programming */
@@ -101,4 +129,5 @@ body {
     /* Opera */
     transform: scale(1.01);
 }
+
 /* Zoom card programming */

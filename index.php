@@ -13,9 +13,7 @@ if (isset($_POST['fight'])) {
     $enemy = new Enemy($enemyHealth, $enemyRage, $enemyName, $enemyWeapon, $enemyWeaponDamage, $enemyShield, $enemyShieldValue, $enemyMultiplicatorDamage);
 };
 
-// var_dump();
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -194,8 +192,8 @@ if (isset($_POST['fight'])) {
                     };
                     $enemy->RageUp($enemyRageUp);
                     $enemy->Attack($enemy->getWeaponDamage());
-
             ?>
+
                     <div class="row text-center mx-3 my-5">
                         <div class="col headerTitle">
                             <p class="my-auto"><?= 'ROUND ' . $countRound ?></p>
@@ -360,8 +358,6 @@ if (isset($_POST['fight'])) {
             </div>
         </div>
     </div>
-
-
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>

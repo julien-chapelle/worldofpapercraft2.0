@@ -174,11 +174,11 @@ if (isset($_POST['fight'])) {
             if (isset($_POST['fight']) && !empty($_POST)) {
 
                 $countRound = 0;
-                $countRoundBeforeDeath = 0;
 
                 while ($hero->getHealth() > 0 || $enemy->getHealth() > 0) {
 
                     $countRound++;
+
                     $hero->Attacked($enemy->getWeaponDamage());
                     $heroCushionedAttack = ($enemy->getWeaponDamage() - $hero->getShieldValue());
                     if ($enemy->getWeaponDamage() < $hero->getShieldValue()) {
@@ -247,17 +247,16 @@ if (isset($_POST['fight'])) {
                                     </div>
                                 </div>
                             <?php } elseif ($enemyType == 'coronuviras' && $enemy->getRage() >= 100) {
-                                $countRoundBeforeDeath++;
-                                if ($countRoundBeforeDeath = $countRoundBeforeDeath + 5) {
-                                    $hero->setHealth(0);
-                                };
+                                $countRoundBeforeDeath = 0;
                                 $enemy->setRage(0); ?>
                                 <div class="card m-3 media cardBorder mx-auto">
                                     <div class="card-body">
                                         <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $enemyName . ' a atteint son point critique de rage ! Il vous a infecté, il ne vous reste plus que 5 tours avant de mourir !' : '- ' . $enemyType . ' a atteint son point critique de rage ! Il vous a infecté, il ne vous reste plus que 5 tours avant de mourir !' ?></p>
                                     </div>
                                 </div>
-                            <?php }; ?>
+                            <?php
+                            };
+                            ?>
                         </div>
                         <div class="col">
                             <div class="card m-3 media cardBorder mx-auto">
@@ -320,7 +319,18 @@ if (isset($_POST['fight'])) {
                                 <p class="my-auto"><?= 'Arrêt du programme' ?></p>
                             </div>
                         </div>
+                    <?php break;
+                    } elseif ($enemyType == 'coronuviras' && $countRound > 4 && $countRoundBeforeDeath == 4) {
+                        $hero->setHealth(0); ?>
+                        <div class="row text-center mx-3 my-5">
+                            <div class="col headerTitle">
+                                <p class="my-auto"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? $heroName . ' est mort ! Il a succombé au poison de ' . $enemyName : $heroType . ' est mort ! Il a succombé au poison de ' . $enemyType ?></p>
+                            </div>
+                        </div>
             <?php break;
+                    };
+                    if ($enemyType == 'coronuviras' && $countRound > 4) {
+                        $countRoundBeforeDeath++;
                     };
                 };
             }; ?>

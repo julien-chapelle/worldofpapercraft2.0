@@ -178,7 +178,6 @@ if (isset($_POST['fight'])) {
                 while ($hero->getHealth() > 0 || $enemy->getHealth() > 0) {
 
                     $countRound++;
-
                     $hero->Attacked($enemy->getWeaponDamage());
                     $heroCushionedAttack = ($enemy->getWeaponDamage() - $hero->getShieldValue());
                     if ($enemy->getWeaponDamage() < $hero->getShieldValue()) {
@@ -224,11 +223,12 @@ if (isset($_POST['fight'])) {
                                     <p class="text-left h1"><i class="fas fa-arrow-left"></i></p>
                                 </div>
                             </div>
-                            <?php if ($enemy->getRage() >= 100 && $enemyType != 'le Bug' && $enemyType != 'revenant' && $enemyType != 'coronuviras') {
+                            <?php if ($enemyType == 'uruk Haï' && $enemy->getRage() >= 100) {
+                                $countNoArmsNoChocolate = 0;
                                 $enemy->setRage(0); ?>
                                 <div class="card m-3 media cardBorder mx-auto">
                                     <div class="card-body">
-                                        <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $enemyName . ' a atteint son point critique de rage ! Son attaque spécial vaut ' . $enemy->getWeaponDamage() . ' points de dégâts !' : '- ' . $enemyType . ' a atteint son point critique de rage ! Son attaque spécial vaut ' . ($enemy->getWeaponDamage() * $enemyMultiplicatorDamage) . ' points de dégâts !' ?></p>
+                                        <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $enemyName . ' a atteint son point critique de rage ! Vous êtes K.O pendant 2 tours !' : '- ' . $enemyType . ' a atteint son point critique de rage ! Vous êtes K.O pendant 2 tours !' ?></p>
                                     </div>
                                 </div>
                             <?php } elseif ($enemyType == 'le Bug' && $enemy->getRage() >= 100) { ?>
@@ -259,14 +259,23 @@ if (isset($_POST['fight'])) {
                             ?>
                         </div>
                         <div class="col">
-                            <div class="card m-3 media cardBorder mx-auto">
-                                <div class="card-body">
-                                    <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $heroName . ' attaque !' : '- ' . $heroType . ' attaque !' ?></p>
-                                    <p class="card-text text-left textSize2"><?= '- La puissance de son coup vaut ' . $hero->getWeaponDamage() . ' de dégâts, mais votre ' . $enemy->getShield() . ' en absorbe ' . $enemy->getShieldValue() . ' donc vous ne perdez que ' . $enemyCushionedAttack . ' points de vie.' ?></p>
-                                    <p class="text-right h1"><i class="fas fa-arrow-right"></i></p>
+                            <?php if ($hero->getWeaponDamage() == 0) { ?>
+                                <div class="card m-3 media cardBorder mx-auto">
+                                    <div class="card-body">
+                                        <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $heroName . ' est K.O pendant 2 tours !' : '- ' . $heroType . ' est K.O pendant 2 tours !' ?></p>
+                                        <p class="text-right h1"><i class="far fa-dizzy"></i></p>
+                                    </div>
                                 </div>
-                            </div>
-                            <?php if ($hero->getRage() >= 100 && $heroType != 'développeur web') {
+                            <?php } else { ?>
+                                <div class="card m-3 media cardBorder mx-auto">
+                                    <div class="card-body">
+                                        <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $heroName . ' attaque !' : '- ' . $heroType . ' attaque !' ?></p>
+                                        <p class="card-text text-left textSize2"><?= '- La puissance de son coup vaut ' . $hero->getWeaponDamage() . ' de dégâts, mais votre ' . $enemy->getShield() . ' en absorbe ' . $enemy->getShieldValue() . ' donc vous ne perdez que ' . $enemyCushionedAttack . ' points de vie.' ?></p>
+                                        <p class="text-right h1"><i class="fas fa-arrow-right"></i></p>
+                                    </div>
+                                </div>
+                            <?php };
+                            if ($hero->getRage() >= 100 && $heroType != 'développeur web') {
                                 $enemy->setHealth($enemy->getHealth() - ($hero->getWeaponDamage() * $heroMultiplicatorDamage));
                                 $hero->setRage(0); ?>
                                 <div class="card m-3 media cardBorder mx-auto">
@@ -320,7 +329,7 @@ if (isset($_POST['fight'])) {
                             </div>
                         </div>
                     <?php break;
-                    } elseif ($enemyType == 'coronuviras' && $countRound > 4 && $countRoundBeforeDeath == 4) {
+                    } elseif ($enemyType == 'coronuviras' && $countRound >= (100 / $enemyRageUp) && $countRoundBeforeDeath == 4) {
                         $hero->setHealth(0); ?>
                         <div class="row text-center mx-3 my-5">
                             <div class="col headerTitle">
@@ -328,9 +337,18 @@ if (isset($_POST['fight'])) {
                             </div>
                         </div>
             <?php break;
+                    } elseif ($enemyType == 'uruk Haï' && $countRound >= (100 / $enemyRageUp)) {
+                        if ($countNoArmsNoChocolate <= 1) {
+                            $hero->setWeaponDamage(0);
+                        } elseif ($countNoArmsNoChocolate > 1) {
+                            $hero->setWeaponDamage($heroWeaponDamage);
+                        };
                     };
-                    if ($enemyType == 'coronuviras' && $countRound > 4) {
+                    if ($enemyType == 'coronuviras' && $countRound >= (100 / $enemyRageUp)) {
                         $countRoundBeforeDeath++;
+                    };
+                    if ($enemyType == 'uruk Haï' && $countRound >= (100 / $enemyRageUp)) {
+                        $countNoArmsNoChocolate++;
                     };
                 };
             }; ?>

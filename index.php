@@ -43,7 +43,7 @@ if (isset($_POST['fight'])) {
             <div class="row mx-3 my-5 text-center justify-content-around">
                 <div class="col p-0">
                     <form method="POST" action="index.php">
-                        <button type="submit" class="nameChoice px-3" name="newFight">Nouveau combat</button>
+                        <button type="submit" class="nameChoice px-3 newFight" name="newFight">Nouveau combat</button>
                     </form>
                 </div>
             </div>
@@ -133,7 +133,7 @@ if (isset($_POST['fight'])) {
         <div id="arenaVisibility">
             <div class="row text-center mx-3 my-5">
                 <div class="col headerTitle">
-                    <p>WOP ARENA</p>
+                    <p class="my-auto">WOP ARENA</p>
                 </div>
             </div>
             <div class="row justify-content-around m-0">
@@ -174,6 +174,8 @@ if (isset($_POST['fight'])) {
             if (isset($_POST['fight']) && !empty($_POST)) {
 
                 $countRound = 0;
+                $countRoundBeforeDeath = 0;
+
                 while ($hero->getHealth() > 0 || $enemy->getHealth() > 0) {
 
                     $countRound++;
@@ -197,41 +199,10 @@ if (isset($_POST['fight'])) {
             ?>
                     <div class="row text-center mx-3 my-5">
                         <div class="col headerTitle">
-                            <p><?= 'ROUND ' . $countRound ?></p>
+                            <p class="my-auto"><?= 'ROUND ' . $countRound ?></p>
                         </div>
                     </div>
                     <div class="row justify-content-around m-0">
-                        <div class="col">
-                            <div class="card m-3 media cardBorder mx-auto">
-                                <div class="card-body">
-                                    <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $enemyName . ' attaque !' : '- ' . $enemyType . ' attaque !' ?></p>
-                                    <p class="card-text text-left textSize2"><?= '- La puissance de son coup vaut ' . $enemy->getWeaponDamage() . ' de dégâts, mais votre ' . $hero->getShield() . ' en absorbe ' . $hero->getShieldValue() . ' donc vous ne perdez que ' . $heroCushionedAttack . ' points de vie.' ?></p>
-                                </div>
-                            </div>
-                            <?php if ($enemy->getRage() >= 100 && $enemyType != 'le Bug' && $enemyType != 'revenant') {
-                                $enemy->setRage(0); ?>
-                                <div class="card m-3 media cardBorder mx-auto">
-                                    <div class="card-body">
-                                        <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $enemyName . ' a atteint son point critique de rage ! Son attaque spécial vaut ' . $enemy->getWeaponDamage() . ' points de dégâts !' : '- ' . $enemyType . ' a atteint son point critique de rage ! Son attaque spécial vaut ' . ($enemy->getWeaponDamage() * $enemyMultiplicatorDamage) . ' points de dégâts !' ?></p>
-                                    </div>
-                                </div>
-                            <?php } elseif ($enemyType == 'le Bug' && $enemy->getRage() >= 100) { ?>
-                                <div class="card m-3 media cardBorder mx-auto">
-                                    <div class="card-body">
-                                        <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $enemyName . ' a atteint son point critique de rage ! Il lance RM -RF * ! Tout s\'arrête !!' : '- ' . $enemyType . ' a atteint son point critique de rage ! Il lance RM -RF * ! Tout s\'arrête !!' ?></p>
-                                    </div>
-                                </div>
-                            <?php
-                            } elseif ($enemyType == 'revenant' && $enemy->getRage() >= 100){ 
-                                $hero->setHealth($hero->getHealth() - ($enemy->getWeaponDamage() + $enemyMultiplicatorDamage));
-                                $enemy->setRage(0); ?>
-                                <div class="card m-3 media cardBorder mx-auto">
-                                    <div class="card-body">
-                                        <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $enemyName . ' a atteint son point critique de rage ! Son attaque spécial vaut ' . $enemy->getWeaponDamage() . ' points de dégâts !' : '- ' . $enemyType . ' a atteint son point critique de rage ! Son attaque spécial vaut ' . ($enemy->getWeaponDamage() + $enemyMultiplicatorDamage) . ' points de dégâts !' ?></p>
-                                    </div>
-                                </div>
-                            <?php }; ?>
-                        </div>
                         <div class="col">
                             <div class="card m-3 media cardBorder mx-auto">
                                 <img src="assets/img/<?= $heroPic ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $heroType ?>">
@@ -247,22 +218,53 @@ if (isset($_POST['fight'])) {
                         </div>
                         <div class="col">
                             <div class="card m-3 media cardBorder mx-auto">
-                                <img src="assets/img/<?= $enemyPic ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $enemyType ?>">
                                 <div class="card-body">
-                                    <h5 class="card-title text-center textSize1"><?= $enemyName ?></h5>
-                                    <p class="card-text text-left textSize2"><i class="fas fa-user-ninja"></i><?= ' - ' . $enemyType ?></p>
-                                    <p class="card-text text-left textSize1"><i class="fas fa-heartbeat"></i><?= $enemy->getHealth() <= 0 ? ' - MORT' : ' - ' . $enemy->getHealth() ?></p>
-                                    <p class="card-text text-left textSize2"><i class="fas fa-khanda"></i><?= ' - ' . $enemyWeapon . ' : ' . $enemyWeaponDamage . ' points' ?></p>
-                                    <p class="card-text text-left textSize2"><i class="fas fa-user-shield"></i><?= ' - ' . $enemyShield . ' : ' . $enemyShieldValue . ' points'  ?></p>
-                                    <p class="card-text text-left textSize1"><i class="fas fa-fire-alt"></i><?= ' - ' . $enemy->getRage() ?></p>
+                                    <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $enemyName . ' attaque !' : '- ' . $enemyType . ' attaque !' ?></p>
+                                    <p class="card-text text-left textSize2"><?= '- La puissance de son coup vaut ' . $enemy->getWeaponDamage() . ' de dégâts, mais votre ' . $hero->getShield() . ' en absorbe ' . $hero->getShieldValue() . ' donc vous ne perdez que ' . $heroCushionedAttack . ' points de vie.' ?></p>
+                                    <p class="text-left h1"><i class="fas fa-arrow-left"></i></p>
                                 </div>
                             </div>
+                            <?php if ($enemy->getRage() >= 100 && $enemyType != 'le Bug' && $enemyType != 'revenant' && $enemyType != 'coronuviras') {
+                                $enemy->setRage(0); ?>
+                                <div class="card m-3 media cardBorder mx-auto">
+                                    <div class="card-body">
+                                        <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $enemyName . ' a atteint son point critique de rage ! Son attaque spécial vaut ' . $enemy->getWeaponDamage() . ' points de dégâts !' : '- ' . $enemyType . ' a atteint son point critique de rage ! Son attaque spécial vaut ' . ($enemy->getWeaponDamage() * $enemyMultiplicatorDamage) . ' points de dégâts !' ?></p>
+                                    </div>
+                                </div>
+                            <?php } elseif ($enemyType == 'le Bug' && $enemy->getRage() >= 100) { ?>
+                                <div class="card m-3 media cardBorder mx-auto">
+                                    <div class="card-body">
+                                        <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $enemyName . ' a atteint son point critique de rage ! Il lance RM -RF * ! Tout s\'arrête !!' : '- ' . $enemyType . ' a atteint son point critique de rage ! Il lance RM -RF * ! Tout s\'arrête !!' ?></p>
+                                    </div>
+                                </div>
+                            <?php
+                            } elseif ($enemyType == 'revenant' && $enemy->getRage() >= 100) {
+                                $hero->setHealth($hero->getHealth() - ($enemy->getWeaponDamage() + $enemyMultiplicatorDamage));
+                                $enemy->setRage(0); ?>
+                                <div class="card m-3 media cardBorder mx-auto">
+                                    <div class="card-body">
+                                        <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $enemyName . ' a atteint son point critique de rage ! Son attaque spécial vaut ' . $enemy->getWeaponDamage() . ' points de dégâts !' : '- ' . $enemyType . ' a atteint son point critique de rage ! Son attaque spécial vaut ' . ($enemy->getWeaponDamage() + $enemyMultiplicatorDamage) . ' points de dégâts !' ?></p>
+                                    </div>
+                                </div>
+                            <?php } elseif ($enemyType == 'coronuviras' && $enemy->getRage() >= 100) {
+                                $countRoundBeforeDeath++;
+                                if ($countRoundBeforeDeath = $countRoundBeforeDeath + 5) {
+                                    $hero->setHealth(0);
+                                };
+                                $enemy->setRage(0); ?>
+                                <div class="card m-3 media cardBorder mx-auto">
+                                    <div class="card-body">
+                                        <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $enemyName . ' a atteint son point critique de rage ! Il vous a infecté, il ne vous reste plus que 5 tours avant de mourir !' : '- ' . $enemyType . ' a atteint son point critique de rage ! Il vous a infecté, il ne vous reste plus que 5 tours avant de mourir !' ?></p>
+                                    </div>
+                                </div>
+                            <?php }; ?>
                         </div>
                         <div class="col">
                             <div class="card m-3 media cardBorder mx-auto">
                                 <div class="card-body">
                                     <p class="card-text text-left textSize2"><?= isset($_POST['nameHeroChoice']) && $_POST['nameHeroChoice'] != '' && isset($_POST['nameEnemyChoice']) && $_POST['nameEnemyChoice'] != '' ? '- ' . $heroName . ' attaque !' : '- ' . $heroType . ' attaque !' ?></p>
                                     <p class="card-text text-left textSize2"><?= '- La puissance de son coup vaut ' . $hero->getWeaponDamage() . ' de dégâts, mais votre ' . $enemy->getShield() . ' en absorbe ' . $enemy->getShieldValue() . ' donc vous ne perdez que ' . $enemyCushionedAttack . ' points de vie.' ?></p>
+                                    <p class="text-right h1"><i class="fas fa-arrow-right"></i></p>
                                 </div>
                             </div>
                             <?php if ($hero->getRage() >= 100 && $heroType != 'développeur web') {
@@ -283,8 +285,20 @@ if (isset($_POST['fight'])) {
                                 </div>
                             <?php }; ?>
                         </div>
+                        <div class="col">
+                            <div class="card m-3 media cardBorder mx-auto">
+                                <img src="assets/img/<?= $enemyPic ?>" class="card-img-top p-4 img-fluid" alt="<?= 'Image de ' . $enemyType ?>">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center textSize1"><?= $enemyName ?></h5>
+                                    <p class="card-text text-left textSize2"><i class="fas fa-user-ninja"></i><?= ' - ' . $enemyType ?></p>
+                                    <p class="card-text text-left textSize1"><i class="fas fa-heartbeat"></i><?= $enemy->getHealth() <= 0 ? ' - MORT' : ' - ' . $enemy->getHealth() ?></p>
+                                    <p class="card-text text-left textSize2"><i class="fas fa-khanda"></i><?= ' - ' . $enemyWeapon . ' : ' . $enemyWeaponDamage . ' points' ?></p>
+                                    <p class="card-text text-left textSize2"><i class="fas fa-user-shield"></i><?= ' - ' . $enemyShield . ' : ' . $enemyShieldValue . ' points'  ?></p>
+                                    <p class="card-text text-left textSize1"><i class="fas fa-fire-alt"></i><?= ' - ' . $enemy->getRage() ?></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
 
                     <?php if ($hero->getHealth() <= 0) { ?>
                         <div class="row text-center mx-3 my-5">
